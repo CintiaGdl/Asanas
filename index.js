@@ -11,8 +11,9 @@ const { connect } = require('./src/utils/database/db');
 const documentation = require('./src/utils/documentation/api.json');
 
 //importamos nuestras rutas / endpoints
-const AsanaRouters = require('./src/api/Asanas/asanas.routes')
-const SecuenceRouters = require('./src/api/Secuences/secuences.routes')
+const AsanaRouters = require('./src/api/Asanas/asanas.routes');
+const SecuenceRouters = require('./src/api/Secuences/secuences.routes');
+const UserRoutes = require('./src/api/Users/user.routes');
 
 //seleccionamos un puerto y si no existe damos 8080
 const PORT = process.env.PORT || 8080;
@@ -31,7 +32,7 @@ app.use((req, res, next) => {
     next()
 })
 
-//configuramos proxies CORS
+//configuramos proxies CORS, son las urls que le damos acceso a nuestra api
 app.use(cors({
     origin: ['http://localhost:3000', 'http://localhost:4200'],
     credentials: true
@@ -49,6 +50,7 @@ app.use(express.urlencoded({
 //cargamos las rutas, volvemos luego cuando estén creados los endpoints
 app.use('/api/Asanas', AsanaRouters);
 app.use('/api/Secuences', SecuenceRouters);
+app.use('/api/Users', UserRoutes);
 
 //documentation de nuestra api
 app.use('/api', (req, res, next) => {

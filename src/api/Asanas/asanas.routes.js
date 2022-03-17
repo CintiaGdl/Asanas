@@ -7,15 +7,15 @@ const {
     patchOne,
     deleteOne
 } = require('./asanas.controller');
-// Traer todos los actores en el endpoint /all
+
+//importamos la autenticación
+const { isAuth } = require('../../middlewares/auth.middleware')
+
+//importamos nuestros endpoints de asanas
 AsanaRoutes.get('/', getAll);
-// Traer Actor por id
 AsanaRoutes.get('/:id', getOne);
-// Crear un actor POST
 AsanaRoutes.post('/', postOne);
-// Modificar Actor
 AsanaRoutes.patch('/:id', patchOne);
-// Delete Actor
-AsanaRoutes.delete('/:id', deleteOne);
+AsanaRoutes.delete('/:id', [isAuth], deleteOne);
 
 module.exports = AsanaRoutes;
