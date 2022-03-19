@@ -1,6 +1,8 @@
 //importamos nuestro User y JwtUtils para autentificar el token
 const User = require('../api/Users/user.model');
 const JwtUtils = require('../utils/jwt/jwt');
+//importamos formateo de errores
+const { setError } = require('../utils/error/error');
 
 //configuramos nuestra función de autenticación
 const isAuth = async (req, res, next) => {
@@ -9,8 +11,7 @@ const isAuth = async (req, res, next) => {
         const token = req.headers.authorization;
         //si no hay token da error
         if (!token) {
-            // TODO: ERROR
-            return next(new Error);
+            return next(setError(404, 'You need to login.'));
         }
         //en la cabecera el token viene como Bearer TOKEN
         //con el método replace quitamos tanto Bearer como el espacio

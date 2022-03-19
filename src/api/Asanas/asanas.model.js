@@ -5,6 +5,7 @@ const asanaSchema = new mongoose.Schema(
     {
         name: { type: String, required: true, trim: true},
         description: { type: String, required: false, trim: true},
+        image: { type: String, trim: true, required: false }
     },
     {
         timestamps: true,

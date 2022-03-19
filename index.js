@@ -7,6 +7,9 @@ const cors = require('cors');
 //conectamos con la DB
 const { connect } = require('./src/utils/database/db');
 
+//importamos cloudinary
+const { configCloudinary } = require('./src/utils/cloudinary/config');
+
 //info API
 const documentation = require('./src/utils/documentation/api.json');
 
@@ -23,6 +26,9 @@ const app = express();
 
 //ejecutamos la función de conexión para la DB
 connect();
+
+//ejecutamos cloudinary
+configCloudinary();
 
 // Configuramos las cabeceras, todos los métodos que va a poder tener, la info de la petición y q permite credenciales
 app.use((req, res, next) => {

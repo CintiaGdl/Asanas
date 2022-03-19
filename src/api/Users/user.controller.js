@@ -2,6 +2,8 @@
 const User = require('./user.model');
 const bcrypt = require('bcrypt');
 const JwtUtils = require('../../utils/jwt/jwt');
+//importamos formateo de errores
+const { setError } = require('../../utils/error/error');
 
 //configuramos la creación del user
 const register = async (req, res, next) => {
@@ -11,8 +13,7 @@ const register = async (req, res, next) => {
         const userExist = await User.findOne({ email: user.email });
         //si existe nos devuelve error
         if (userExist) {
-            // TODO
-            return next(new Error());
+            return next(setError(404, 'This email already exists.'));
         }
         //si no se añade a nuestra DATA BASE
         const userDB = await user.save();
@@ -29,8 +30,7 @@ const login = async (req, res, next) => {
         const user = await User.findOne({ email: req.body.email });
         //si no da error
         if (!user) {
-            //TODO
-            return next(new Error)
+            return next(setError(404, 'This email is not register.'))
         }
         //verificamos contraseña comparando la contraseña con la hasheada, método compareSync
         if (bcrypt.compareSync(req.body.password, user.password)) {
@@ -38,6 +38,8 @@ const login = async (req, res, next) => {
             const token = JwtUtils.generateToken(user._id, user.email);
             // y devolvemos el token al frontal
             return res.status(200).json(token);
+        } else {
+            return next(setError(404, 'This password is not correct.'))
         }
     } catch (error) {
         return next(error);

@@ -1,5 +1,7 @@
 //importamos el model de asanas
 const Asana = require('./asanas.model');
+//importamos middleware para el borrado de las imagenes asociadas 
+const { deleteImgCloudinary } = require('../../middlewares/deleteFile.middleware');
 
 //método para recuperar todos las asanas de la DB
 const getAll = async (req, res, next) => {
@@ -34,6 +36,8 @@ const postOne = async (req, res, next) => {
         //el body es la info que nos llega desde el front
         asana.name = req.body.name;
         asana.description = req.body.description;
+        //si la imagen no fuera requerida sería if (req.file) movie.img = req.file.path
+        if (req.file) asana.image = req.file.path;
         //guardamos la info nueva mediante el metodo de mongoose save
         const asanaDB = await asana.save();
         return res.status(201).json(asanaDB);
@@ -48,6 +52,7 @@ const patchOne = async (req, res, next) => {
         const { id } = req.params;
         const asana = new Asana(req.body);
         asana._id = id;
+        if (req.file) asana.image = req.file.path;
         const updateAsana = await Asana.findByIdAndUpdate(id, asana);
         return res.status(200).json(updateAsana);
     } catch (error) {
@@ -60,6 +65,7 @@ const deleteOne = async (req, res, next) => {
     try {
         const { id } = req.params;
         const asana = await Asana.findByIdAndDelete(id);
+        if (asana.image) deleteImgCloudinary(asana.image);
         return res.status(200).json(asana);
     } catch (error) {
         return next(error);
