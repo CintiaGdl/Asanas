@@ -38,39 +38,39 @@
         },
         {
             "Action": "GET",
-            "URL": "/api/movies/id",
+            "URL": "/api/secuences/id",
             "response": {
-                "_id": "6228be33c5397eba91ecad18",
-                "name": "En busca de la felicidad",
-                "year": 2006,
-                "actors": [
+                "_id": "",
+                "name": "",
+                "level": ,
+                "asanas": [
                     {
-                        "_id": "6228bdc5c5397eba91ecad17",
-                        "name": "Will Smith",
-                        "age": 53,
-                        "updatedAt": "2022-03-09T15:10:11.021Z"
+                        "_id": "",
+                        "name": "",
+                        "description": "",
+                        "updatedAt": ""
                     }
                 ]
             }
         },
         {
             "Action": "POST",
-            "URL": "/api/movies",
+            "URL": "/api/secuences",
             "request-body": {
-                "name": "El gran Invento",
-                "year": 2013,
-                "actors": ["6228c2a11b9a1722cad7024e", "6228bdc5c5397eba91ecad17"]
+                "name": "",
+                "level": ,
+                "asanas": ["", ""]
 		        },
 		        "response": {
-		            "actors": [
-		                "6228c2a11b9a1722cad7024e",
-		                "6228bdc5c5397eba91ecad17"
+		            "asanas": [
+		                "",
+		                ""
 		            ],
-		            "_id": "6229bc8d14efa4d872756d2e",
-		            "name": "El gran Invento",
-		            "year": 2013,
-		            "createdAt": "2022-03-10T08:53:33.169Z",
-		            "updatedAt": "2022-03-10T08:53:33.169Z",
+		            "_id": "",
+		            "name": "",
+		            "level": ,
+		            "createdAt": "",
+		            "updatedAt": "",
 		            "__v": 0
 		        }
         }
